@@ -96,7 +96,7 @@
 		        
 			</div>
 		</nav>
-		<div style="position:absolute; top:10px left:10px; width:100px">
+		<div class="leftTop" style="position:absolute; top:10px left:10px; width:100px">
 			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=448184048&auto=0&height=66"></iframe>
 		</div>>
 		<!-->width: 100px;
@@ -273,23 +273,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h3 id="一、SQL注入简介"><a href="#一、SQL注入简介" class="headerlink" title="一、SQL注入简介"></a>一、SQL注入简介</h3><p>  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。</p>
-<hr>
-<h3 id="二、SQL注入攻击的总体思路"><a href="#二、SQL注入攻击的总体思路" class="headerlink" title="二、SQL注入攻击的总体思路"></a>二、SQL注入攻击的总体思路</h3><p>1.寻找到SQL注入的位置<br><br>2.判断服务器类型和后台数据库类型<br><br>3.针对不通的服务器和数据库特点进行SQL注入攻击</p>
-<hr>
-<h3 id="三、SQL注入攻击实例"><a href="#三、SQL注入攻击实例" class="headerlink" title="三、SQL注入攻击实例"></a>三、SQL注入攻击实例</h3><p>1.数字注入<br><br>当你需要登陆时,我们都会拿到一个界面，这里需要你输入 username and password <br><br>username: id=’-1’or’1=1’<br><br>password: <br><br>此时我们就可以登入数据库查找信息(这只是一种情况但是如果有防护措施也可能行不通)<br><br>我们来分析一下这种情况<br><br>从理论上说，后台认证程序中会有如下的SQL语句：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String sql = "<span class="keyword">select</span> * <span class="keyword">from</span> user_table <span class="keyword">where</span> username= <span class="string">' "+userName+" '</span> <span class="keyword">and</span> <span class="keyword">password</span>=<span class="string">' "+password+" '</span><span class="string">";</span></span><br></pre></td></tr></table></figure>
-<p>当输入了上面的用户名和密码，上面的SQL语句变成：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> user_table <span class="keyword">WHERE</span> username= <span class="string">'’or 1 = 1  and password='</span>’</span><br></pre></td></tr></table></figure></p>
-<p>因为关系为or 所以一方为真则 判断为1，则可登陆进入<br><br>2.字符串注入<br><br>字符串注入的原理就是先用一个单引号闭合之前的语句，之后再加#或者–这两者都表示有注释的意思，在一个没有预防字符串注入的程序里，后边的核对语句将会被注释掉 所以可以直接登陆而不需要任何检测 从而达到sql注入的目的</p>
-<h3 id="四、防止sql注入的一些方法"><a href="#四、防止sql注入的一些方法" class="headerlink" title="四、防止sql注入的一些方法"></a>四、防止sql注入的一些方法</h3><p>1.对于数字注入可以加强核对<br><br>2.对于字符串注入 尽量防止使用宽字节 通过转义的的方法 将’转义达到效果(但是有时可以用%df干掉/)<br></p>
-<h3 id="五、示例-某道ctf试题"><a href="#五、示例-某道ctf试题" class="headerlink" title="五、示例(某道ctf试题)"></a>五、示例(某道ctf试题)</h3><p><img src="https://wx1.sinaimg.cn/mw690/dea8a9a3ly1frt665b9f4j20lf04xdfs.jpg" alt="image"><br>题目主要的php代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>($_POST[user] &amp;&amp; $_POST[pass]) &#123;</span><br><span class="line">    mysql_connect(SAE_MYSQL_HOST_M . <span class="string">':'</span> . SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);</span><br><span class="line">    mysql_select_db(SAE_MYSQL_DB);</span><br><span class="line">    $user = trim($_POST[user]);</span><br><span class="line">    $pass = md5(trim($_POST[pass]));</span><br><span class="line">    $sql=<span class="string">"select user from ctf where (user='"</span>.$user.<span class="string">"') and (pw='"</span>.$pass.<span class="string">"')"</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;/br&gt;'</span>.$sql;</span><br><span class="line">    $query = mysql_fetch_array(mysql_query($sql));</span><br><span class="line">    <span class="keyword">if</span>($query[user]==<span class="string">"admin"</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Logged in! flag:******************** &lt;/p&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>($query[user] != <span class="string">"admin"</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span>(<span class="string">"&lt;p&gt;You are not admin!&lt;/p&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> $query[user];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>所以只要用构造一下user的值，使语法无误，然后注释掉后面的即可。MySQL主要有三种注释方式#注释到行尾，/<em>bla</em>/用于行间或多行注释，–也是注释到行尾，但需要注意的是在两个减号后面至少要有一个\s，也就是空格，TAB，换行符等。<br>此题有两种答案<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin<span class="string">')-- -&amp;pass=123</span></span><br></pre></td></tr></table></figure></p>
-<p>或<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin<span class="string">')#&amp;pass=123</span></span><br></pre></td></tr></table></figure></p>
-<p>即可得到flag{<strong><strong>***</strong></strong>}</p>
-<hr>
-<p>to be continued</p>
-
+        <h4 id="小白一个"><a href="#小白一个" class="headerlink" title="小白一个"></a>小白一个</h4>
+        
+          <a class="article-more-a" href="/2018/03/21/sql注入浅che谈dan/#more">more >></a>
+        
       
 
       
