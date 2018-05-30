@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>sql注入浅(che)谈(dan) | 信安那些事</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里需">
+  <meta name="description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql注入浅(che)谈(dan)">
 <meta property="og:url" content="http://yoursite.com/2018/03/21/sql注入浅che谈dan/index.html">
 <meta property="og:site_name" content="信安那些事">
-<meta property="og:description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里需">
+<meta property="og:description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://wx1.sinaimg.cn/mw690/dea8a9a3ly1frt665b9f4j20lf04xdfs.jpg">
-<meta property="og:updated_time" content="2018-05-30T03:00:55.782Z">
+<meta property="og:updated_time" content="2018-05-30T03:04:43.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入浅(che)谈(dan)">
-<meta name="twitter:description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里需">
+<meta name="twitter:description" content="一、SQL注入简介  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。  二、SQL注入攻击的总体思路1.寻找到SQL注入的位置2.判断服务器类型和后台数据库类型3.针对不通的服务器和数据库特点进行SQL注入攻击  三、SQL注入攻击实例1.数字注入当你需要登陆时,我们都会拿到一个界面，这里">
 <meta name="twitter:image" content="https://wx1.sinaimg.cn/mw690/dea8a9a3ly1frt665b9f4j20lf04xdfs.jpg">
   
     <link rel="alternative" href="/atom.xml" title="信安那些事" type="application/atom+xml">
@@ -200,7 +200,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、SQL注入简介"><a href="#一、SQL注入简介" class="headerlink" title="一、SQL注入简介"></a>一、SQL注入简介</h3><p>  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。</p>
+        <a id="more"></a>
+<h3 id="一、SQL注入简介"><a href="#一、SQL注入简介" class="headerlink" title="一、SQL注入简介"></a>一、SQL注入简介</h3><p>  SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编程时的疏忽，通过SQL语句，实现无帐号登录，甚至篡改数据库。</p>
 <hr>
 <h3 id="二、SQL注入攻击的总体思路"><a href="#二、SQL注入攻击的总体思路" class="headerlink" title="二、SQL注入攻击的总体思路"></a>二、SQL注入攻击的总体思路</h3><p>1.寻找到SQL注入的位置<br><br>2.判断服务器类型和后台数据库类型<br><br>3.针对不通的服务器和数据库特点进行SQL注入攻击</p>
 <hr>
@@ -469,10 +470,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">feel</a>
-              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">music</a>
